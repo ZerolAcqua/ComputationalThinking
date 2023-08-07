@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.16
+# v0.19.27
 
 #> [frontmatter]
 #> chapter = 1
@@ -40,6 +40,13 @@ all_image_urls = [
 	"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Piet_Mondriaan%2C_1930_-_Mondrian_Composition_II_in_Red%2C_Blue%2C_and_Yellow.jpg/300px-Piet_Mondriaan%2C_1930_-_Mondrian_Composition_II_in_Red%2C_Blue%2C_and_Yellow.jpg" => "Piet Mondriaan - Composition with Red, Blue and Yellow",
 	"https://user-images.githubusercontent.com/6933510/110993432-950df980-8377-11eb-82e7-b7ce4a0d04bc.png" => "Mario"
 ]
+
+# ╔═╡ 365349c7-458b-4a6d-b067-5112cb3d091f
+"Decimate an image such that its new height is at most `height`."
+function decimate_to_height(img, height)
+	factor = max(1, 1 + size(img, 1) ÷ height)
+	img[1:factor:end, 1:factor:end]
+end
 
 # ╔═╡ 5370bf57-1341-4926-b012-ba58780217b1
 removal_test_image = Gray.(rand(4,4))
@@ -168,13 +175,6 @@ img_original = load(download(image_url));
 
 # ╔═╡ a5271c38-ba45-416b-94a4-ba608c25b897
 max_height = parse(Int, max_height_str)
-
-# ╔═╡ 365349c7-458b-4a6d-b067-5112cb3d091f
-"Decimate an image such that its new height is at most `height`."
-function decimate_to_height(img, height)
-	factor = max(1, 1 + size(img, 1) ÷ height)
-	img[1:factor:end, 1:factor:end]
-end
 
 # ╔═╡ ab276048-f34b-42dd-b6bf-0b83c6d99e6a
 img = decimate_to_height(img_original, max_height)
